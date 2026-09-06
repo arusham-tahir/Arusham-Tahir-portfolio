@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arusham Tahir | Portfolio</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+
+  body {
+    min-height:100vh;
+    background: radial-gradient(circle at top, #0d1b2e, #030814 70%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:60px 20px 100px;
+    color:#fff;
+  }
+
+  .wrap { width:100%; max-width:900px; }
+
+  .profile-row {
+    display:flex;
+    gap:25px;
+    align-items:stretch;
+    margin-bottom:60px;
+    flex-wrap:wrap;
+  }
+
+  .avatar-card {
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    border-radius:20px;
+    padding:30px 25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-width:180px;
+    box-shadow:0 0 30px rgba(0,240,200,0.15);
+  }
+
+  .avatar-circle {
+    width:120px; height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid #00f0c8;
+    box-shadow:0 0 30px #00f0c8aa, 0 0 60px #00f0c855;
+    margin-bottom:16px;
+  }
+
+  .avatar-circle img { width:100%; height:100%; object-fit:cover; }
+
+  .avatar-card h1 { font-size:1.3rem; text-align:center; }
+  .avatar-card .role { font-size:0.8rem; color:#00f0c8; margin-top:6px; text-align:center; line-height:1.5; }
+
+  .summary-card {
+    flex:1;
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    border-radius:20px;
+    padding:28px 32px;
+    min-width:260px;
+  }
+
+  .summary-card h2 {
+    font-size:0.95rem;
+    letter-spacing:1.5px;
+    color:#00f0c8;
+    text-transform:uppercase;
+    border-left:4px solid #00f0c8;
+    padding-left:12px;
+    margin-bottom:15px;
+  }
+
+  .summary-card p { color:#ccc; line-height:1.7; font-size:0.98rem; }
+
+  section { width:100%; margin-bottom:60px; }
+
+  section > h2 {
+    font-size:1.6rem;
+    margin-bottom:25px;
+    border-left:4px solid #00f0c8;
+    padding-left:12px;
+  }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:25px; }
+
+  .btn {
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    justify-content:center;
+    padding:22px 20px;
+    border-radius:16px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:1.05rem;
+    color:#fff;
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    z-index:1;
+  }
+
+  .btn::before {
+    content:"";
+    position:absolute; inset:0;
+    background:var(--glow);
+    opacity:0;
+    transition:opacity 0.3s ease;
+    z-index:-1;
+    filter:blur(20px);
+  }
+
+  .btn:hover { transform:translateY(-6px) scale(1.03); box-shadow:0 0 25px var(--shadow), 0 0 60px var(--shadow); }
+  .btn:hover::before { opacity:0.6; }
+
+  .btn img.icon { width:24px; height:24px; flex-shrink:0; }
+
+  .linkedin     { --glow:#0077b5; --shadow:#0077b5aa; }
+  .github       { --glow:#6e5494; --shadow:#6e5494aa; }
+  .cyberfunnel  { --glow:#00f0c8; --shadow:#00f0c8aa; }
+  .credly       { --glow:#f47920; --shadow:#f47920aa; }
+  .microsoft    { --glow:#00a4ef; --shadow:#00a4efaa; }
+  .linux        { --glow:#f7b500; --shadow:#f7b500aa; }
+  .ibm          { --glow:#1f70c1; --shadow:#1f70c1aa; }
+  .fortinet     { --glow:#e2231a; --shadow:#e2231aaa; }
+
+  .card {
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    border-left:4px solid var(--accent);
+    transition:box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card:hover { transform:translateY(-4px); box-shadow:0 0 25px var(--accent-glow); }
+  .card h3 { font-size:1.2rem; color:var(--accent); margin-bottom:4px; }
+  .card .sub { color:#bbb; font-size:0.95rem; margin-bottom:2px; }
+  .card .meta { color:#777; font-size:0.85rem; margin-bottom:12px; }
+  .card ul { margin-left:18px; color:#ddd; font-size:0.95rem; line-height:1.6; }
+  .card p { color:#ddd; font-size:0.95rem; line-height:1.6; margin-top:8px; }
+
+  .exp-card   { --accent:#00f0c8; --accent-glow:#00f0c855; }
+  .edu-card   { --accent:#4facfe; --accent-glow:#4facfe55; }
+
+  .skills-wrap { display:flex; flex-wrap:wrap; gap:12px; }
+  .skill-tag {
+    display:flex; align-items:center; gap:8px;
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    padding:10px 18px;
+    border-radius:30px;
+    font-size:0.9rem;
+    color:#fff;
+    transition:all 0.3s ease;
+    border-left:3px solid var(--c);
+  }
+  .skill-tag img { width:16px; height:16px; }
+  .skill-tag:hover { box-shadow:0 0 15px var(--c); transform:translateY(-3px); }
+
+  .cred-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:22px; }
+
+  .cred-card {
+    background:#0f1c30;
+    border:1px solid rgba(100,150,220,0.12);
+    border-radius:16px;
+    padding:22px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    border-top:3px solid var(--c);
+  }
+  .cred-card:hover { transform:translateY(-5px); box-shadow:0 0 25px var(--c); }
+  .cred-icon {
+    width:46px; height:46px;
+    border-radius:12px;
+    background:#1a1a2e;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .cred-icon img { width:28px; height:28px; }
+  .cred-text h4 { font-size:1rem; color:#fff; margin-bottom:3px; }
+  .cred-text p { font-size:0.8rem; color:#999; }
+
+  .connect-wrap {
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .connect-btn {
+    position:relative;
+    flex:1;
+    min-width:260px;
+    max-width:340px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:26px 30px;
+    border-radius:20px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:1.3rem;
+    color:#fff;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    z-index:1;
+  }
+
+  .connect-btn img { width:32px; height:32px; }
+
+  .connect-linkedin {
+    background:linear-gradient(135deg, #0077b5, #005983);
+  }
+  .connect-linkedin:hover {
+    transform:translateY(-8px) scale(1.03);
+    box-shadow:0 0 35px #0077b5cc, 0 0 70px #0077b566;
+  }
+  .connect-linkedin img { filter:brightness(0) invert(1); }
+
+  .connect-github {
+    background:linear-gradient(135deg, #1a1a1a, #000000);
+    border:1px solid rgba(255,255,255,0.15);
+  }
+  .connect-github:hover {
+    transform:translateY(-8px) scale(1.03);
+    box-shadow:0 0 35px #ffffff55, 0 0 70px #ffffff22;
+  }
+  .connect-github img { filter:brightness(0) invert(1); }
+
+  footer { color:#666; font-size:0.85rem; margin-top:20px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- PROFILE -->
+  <div class="profile-row">
+    <div class="avatar-card">
+      <div class="avatar-circle">
+        <img src="Arusham%20Tahir%20Founder%20of%20CyberFunnel.png" alt="Arusham Tahir">
+      </div>
+      <h1>Arusham Tahir</h1>
+      <div class="role">Aspiring Cybersecurity Analyst | Certified in Microsoft SC-900, IBM, Fortinet & Linux Foundation | Founder at Cyber Funnel</div>
+    </div>
+    <div class="summary-card">
+      <h2>Profile Summary</h2>
+      <p>High school graduate from Punjab Group of Colleges transitioning into Cybersecurity and Computer Science. Documenting hands-on cloud compliance logs, network defenses, and core infrastructure controls aligned with advanced research selection indices.</p>
+    </div>
+  </div>
+
+  <!-- LICENSES -->
+  <section>
+    <h2>Licenses & Credentials</h2>
+    <div class="cred-grid">
+      <a class="cred-card" style="--c:#00a4ef;" href="https://www.credly.com/users/arusham-tahir" target="_blank">
+        <div class="cred-icon"><img src="Microsoft%20Logo.png" alt=""></div>
+        <div class="cred-text"><h4>Security, Compliance & Identity (SC-900)</h4><p>Microsoft Azure</p></div>
+      </a>
+      <a class="cred-card" style="--c:#f7b500;" href="https://www.credly.com/badges/31b16d15-2c1a-4f8e-9c8e-5e7880b1e175/public_url" target="_blank">
+        <div class="cred-icon"><img src="https://cdn.simpleicons.org/linuxfoundation/f7b500" alt=""></div>
+        <div class="cred-text"><h4>Cybersecurity Essentials (LFC108)</h4><p>Linux Foundation</p></div>
+      </a>
+      <a class="cred-card" style="--c:#1f70c1;" href="https://www.credly.com/badges/3b46f271-2cf9-49ed-a179-e8466204fa08" target="_blank">
+        <div class="cred-icon"><img src="IBM%20Logo.png" alt=""></div>
+        <div class="cred-text"><h4>Getting Started with Cybersecurity</h4><p>IBM</p></div>
+      </a>
+      <a class="cred-card" style="--c:#e2231a;" href="https://www.credly.com/badges/bafab564-b18b-42ea-9760-c26474ad8236" target="_blank">
+        <div class="cred-icon"><img src="https://cdn.simpleicons.org/fortinet/e2231a" alt=""></div>
+        <div class="cred-text"><h4>Getting Started in Cybersecurity 3.0</h4><p>Fortinet</p></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <h2>Skills</h2>
+    <div class="skills-wrap">
+      <span class="skill-tag" style="--c:#00a4ef;"><img src="Microsoft%20Logo.png" alt=""> Microsoft Azure</span>
+      <span class="skill-tag" style="--c:#00a4ef;"><img src="Microsoft%20Logo.png" alt=""> Identity and Access Management (IAM)</span>
+      <span class="skill-tag" style="--c:#21759b;"><img src="https://cdn.simpleicons.org/wordpress/21759b" alt=""> WordPress</span>
+      <span class="skill-tag" style="--c:#f7b500;"><img src="https://cdn.simpleicons.org/linuxfoundation/f7b500" alt=""> Linux</span>
+      <span class="skill-tag" style="--c:#e2231a;"><img src="https://cdn.simpleicons.org/fortinet/e2231a" alt=""> Network Security</span>
+      <span class="skill-tag" style="--c:#00f0c8;"><img src="https://cdn.simpleicons.org/hackthebox/00f0c8" alt=""> Cybersecurity</span>
+      <span class="skill-tag" style="--c:#6e5494;"><img src="https://cdn.simpleicons.org/github/6e5494" alt=""> Web Development</span>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <h2>Experience</h2>
+    <div class="card exp-card">
+      <h3>Founder & Web Developer</h3>
+      <div class="sub">Cyber Funnel · Self-employed</div>
+      <div class="meta">Aug 2026 – Present · 2 mos · Haroonabad, Punjab, Pakistan · Remote</div>
+      <ul>
+        <li>Designed and built Cyber Funnel, a cybersecurity education platform, using WordPress and Elementor</li>
+        <li>Created custom header, banner, and footer designs, ensuring consistent branding across all pages</li>
+      </ul>
+      <p style="margin-top:12px;">
+        <a href="https://arusham-tahir.github.io/cyberfunnel/" target="_blank" style="color:#00f0c8;">Cyber Funnel — Live Website ↗</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <h2>Education</h2>
+    <div class="card edu-card">
+      <h3>Punjab Group Of Colleges</h3>
+      <div class="sub">Intermediate, Intermediate in Computer Science (ICS)</div>
+      <div class="meta">Mar 2024 – May 2026 · Grade: 87% (Part 1) — Part 2 result awaited (September 2026)</div>
+      <p>Activities and societies: Independent web developer — actively maintain and publish personal projects and repositories on GitHub, including cybersecurity-focused learning materials.</p>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section>
+    <h2>Links</h2>
+    <div class="grid">
+      <a class="btn linkedin" href="https://www.linkedin.com/in/arusham-tahir-202a54429" target="_blank">
+        <img class="icon" src="https://cdn.simpleicons.org/linkedin/0077b5" alt=""> LinkedIn
+      </a>
+      <a class="btn github" href="https://github.com/arusham-tahir" target="_blank">
+        <img class="icon" src="https://cdn.simpleicons.org/github/6e5494" alt=""> GitHub
+      </a>
+      <a class="btn cyberfunnel" href="https://arusham-tahir.github.io/cyberfunnel/" target="_blank">
+        <img class="icon" src="CyberFunnel%20Logo.png" alt="" style="width:24px;height:24px;object-fit:contain;">CyberFunnel
+      </a>
+      <a class="btn credly" href="https://www.credly.com/users/arusham-tahir" target="_blank">
+        <img class="icon" src="https://cdn.simpleicons.org/credly/f47920" alt=""> Credly
+      </a>
+      <a class="btn microsoft" href="https://learn.microsoft.com/en-us/users/arusham-tahir-5871/transcript/7k1wni8nml05xl3?tab=applied-skills-tab" target="_blank">
+        <img class="icon" src="Microsoft%20Logo.png" alt="" style="width:24px;height:24px;object-fit:contain;">MS Learn Transcript
+      </a>
+      <a class="btn linux" href="https://www.credly.com/badges/31b16d15-2c1a-4f8e-9c8e-5e7880b1e175/public_url" target="_blank">
+        <img class="icon" src="https://cdn.simpleicons.org/linuxfoundation/f7b500" alt=""> Linux Badge
+      </a>
+      <a class="btn ibm" href="https://www.credly.com/badges/3b46f271-2cf9-49ed-a179-e8466204fa08" target="_blank">
+        <img class="icon" src="IBM%20Logo.png" alt="" style="width:24px;height:24px;object-fit:contain;">IBM Badge
+      </a>
+      <a class="btn fortinet" href="https://www.credly.com/badges/bafab564-b18b-42ea-9760-c26474ad8236" target="_blank">
+        <img class="icon" src="https://cdn.simpleicons.org/fortinet/e2231a" alt=""> Fortinet Badge
+      </a>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section>
+    <h2>Connect</h2>
+    <div class="connect-wrap">
+      <a class="connect-btn connect-linkedin" href="https://www.linkedin.com/in/arusham-tahir-202a54429" target="_blank">
+        <img src="https://cdn.simpleicons.org/linkedin/ffffff" alt=""> LinkedIn
+      </a>
+      <a class="connect-btn connect-github" href="https://github.com/arusham-tahir" target="_blank">
+        <img src="https://cdn.simpleicons.org/github/ffffff" alt=""> GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>© 2026 Arusham Tahir · Built with passion for cybersecurity</footer>
+</div>
+</body>
+</html>
